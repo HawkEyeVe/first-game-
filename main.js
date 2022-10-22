@@ -1,4 +1,4 @@
-function newSquare2(x, y, color) {
+function newSquare(x, y, color) {
   const newDiv = document.createElement('div')
   newDiv.className += ` square`
   newDiv.className += ` color_${color}`
@@ -9,7 +9,43 @@ function newSquare2(x, y, color) {
   return newDiv
 }
 
-function gridCreation3(width, height) {
+const textures = ['mountain', 'grass']
+function gridMap(width, height) {
+  const grid = []
+  for (let i = 0; i < width; i++) {
+    grid[i] = []
+    for (j = 0; j < height; j++) {
+      grid[i].push(0)
+    }
+  }
+  return grid
+}
+
+let map = gridMap(10, 10)
+
+function mapBase() {
+  for (let i = 0; i < map.length; i++) {
+    for (let j = 0; j < map[i].length; j++) {
+      map[i][j] = textures[1]
+    }
+  }
+  return map
+}
+
+function border() {
+  map = mapBase()
+  if (map) {
+    for (let i = 0; i < map.length; i++) {
+      map[0][i] = textures[0]
+      map[map.length - 1][i] = textures[0]
+      map[i][0] = textures[0]
+      map[i][map.length - 1] = textures[0]
+    }
+  }
+  return map
+}
+
+function gridCreation(width, height) {
   let moveH = 15
   let moveW = 15
   let color = true
@@ -20,7 +56,7 @@ function gridCreation3(width, height) {
       color = 'brown'
     }
     for (let j = 0; j < width; j++) {
-      newSquare2(moveW, moveH, color)
+      newSquare(moveW, moveH, color)
       if (color === 'brown') {
         color = 'marmol'
       } else {
@@ -33,55 +69,4 @@ function gridCreation3(width, height) {
   }
 }
 
-gridCreation3(8, 8)
-
-// **************
-// OLD CODE BELOW
-// **************
-
-// only  make the div
-function newSquare(color) {
-  const newDiv = document.createElement('div')
-  newDiv.id = color
-  document.body.appendChild(newDiv)
-}
-
-function newBreak() {
-  const nextLine = document.createElement('br')
-  document.body.appendChild(nextLine)
-}
-
-function gridCreation(width, height) {
-  let color = 'brown'
-  for (let i = 0; i < height; i++) {
-    newBreak()
-    if (i % 2 === 0) {
-      color = 'marmol'
-    } else {
-      color = 'brown'
-    }
-    for (let j = 0; j < width; j++) {
-      newSquare(color)
-      if (color === 'brown') {
-        color = 'marmol'
-      } else {
-        color = 'brown'
-      }
-    }
-  }
-}
-// gridCreation(8, 8)
-
-function gridCreation2(width, height) {
-  let color = true
-  for (let i = 0; i < height; i++) {
-    for (let j = 0; j < width; j++) {
-      newSquare(color ? 'brown' : 'marmol')
-      color = !color
-    }
-    newBreak()
-    color = i % 2 != 0
-  }
-}
-
-// gridCreation2(14, 3)
+gridCreation(8, 8)
