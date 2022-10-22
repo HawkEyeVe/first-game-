@@ -34,3 +34,19 @@ function border() {
   return map
 }
 console.table(border())
+
+function gridCreation(width, height) {
+  map = border()
+  let moveH = 15
+  let moveW = 15
+  let color = true
+  for (let i = 0; i < height; i++) {
+    for (let j = 0; j < width; j++) {
+      tiles(moveW, moveH, color)
+      color = map[i][j]
+      moveH += 50
+    }
+    moveH = 15
+    moveW += 50
+  }
+}
